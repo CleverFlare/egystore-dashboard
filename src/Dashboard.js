@@ -498,10 +498,11 @@ const Dashboard = () => {
                     <option value="samsung">Samsung</option>
                     <option value="adidas">Adidas</option>
                     <option value="apple">Apple</option>
-                    <option value="nike'">Nike</option>
-                    <option value="xiaomi'">Xiaomi</option>
-                    <option value="dell'">Dell</option>
-                    <option value="hp'">HP</option>
+                    <option value="nike">Nike</option>
+                    <option value="xiaomi">Xiaomi</option>
+                    <option value="dell">Dell</option>
+                    <option value="hp">HP</option>
+                    <option value="realme">Realme</option>
                   </Form.Select>
                 </Col>
               </Row>
