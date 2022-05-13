@@ -1010,7 +1010,7 @@ const Dashboard = () => {
                         </Col>
                         <Col>
                           <Form.Select
-                            value={onsaleCategory}
+                            value={trendingCategory}
                             onChange={(event) =>
                               setTrendingCategory(event.target.value)
                             }
