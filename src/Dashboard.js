@@ -499,10 +499,9 @@ const Dashboard = () => {
                     <option value="adidas">Adidas</option>
                     <option value="apple">Apple</option>
                     <option value="nike'">Nike</option>
-                    <option value="nike'">Xiaomi</option>
-                    <option value="nike'">Dell</option>
-                    <option value="nike'">Dell</option>
-                    <option value="nike'">HP</option>
+                    <option value="xiaomi'">Xiaomi</option>
+                    <option value="dell'">Dell</option>
+                    <option value="hp'">HP</option>
                   </Form.Select>
                 </Col>
               </Row>
