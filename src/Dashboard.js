@@ -59,7 +59,7 @@ const init = {
   picture5: "",
   colors: [],
   sizes: [],
-  brand: null,
+  brand: "null",
   isSpecial: false,
 };
 
@@ -336,6 +336,7 @@ const Dashboard = () => {
                         type="number"
                         placeholder="Enter the price name..."
                         value={state.price}
+                        step="any"
                         min={0}
                         onChange={(event) =>
                           dispatch({
