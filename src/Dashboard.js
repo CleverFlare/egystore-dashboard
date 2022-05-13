@@ -18,6 +18,7 @@ import {
   getDocs,
   updateDoc,
   deleteField,
+  onSnapshot,
   getDoc,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
@@ -156,7 +157,11 @@ const Dashboard = () => {
   const [trendingCategory, setTrendingCategory] = useState("mobiles");
 
   useEffect(() => {
-    getDocs(colRef).then((snapshot) => {
+    onSnapshot(colRef, (snapshot) => {
+      setBestseller([]);
+      setOnsale([]);
+      setFeatured([]);
+      setTrending([]);
       snapshot.forEach((doc) => {
         const docID = doc.id;
         const bestsellerItems = Object.keys(doc.data()).filter((item) => {
@@ -200,6 +205,50 @@ const Dashboard = () => {
         });
       });
     });
+    // .then((snapshot) => {
+    //   snapshot.forEach((doc) => {
+    //     const docID = doc.id;
+    //     const bestsellerItems = Object.keys(doc.data()).filter((item) => {
+    //       return doc.data()[item].bestseller === true;
+    //     });
+    //     bestsellerItems.forEach((item) => {
+    //       const product = doc.data()[item];
+    //       product.category = docID;
+    //       product.ID = item;
+    //       setBestseller((oldArray) => [...oldArray, product]);
+    //     });
+
+    //     const onsaleItems = Object.keys(doc.data()).filter((item) => {
+    //       return doc.data()[item].onsale === true;
+    //     });
+    //     onsaleItems.forEach((item) => {
+    //       const product = doc.data()[item];
+    //       product.category = docID;
+    //       product.ID = item;
+    //       setOnsale((oldArray) => [...oldArray, product]);
+    //     });
+
+    //     const featuredItems = Object.keys(doc.data()).filter((item) => {
+    //       return doc.data()[item].featured === true;
+    //     });
+    //     featuredItems.forEach((item) => {
+    //       const product = doc.data()[item];
+    //       product.category = docID;
+    //       product.ID = item;
+    //       setFeatured((oldArray) => [...oldArray, product]);
+    //     });
+
+    //     const trendingItems = Object.keys(doc.data()).filter((item) => {
+    //       return doc.data()[item].trending === true;
+    //     });
+    //     trendingItems.forEach((item) => {
+    //       const product = doc.data()[item];
+    //       product.category = docID;
+    //       product.ID = item;
+    //       setTrending((oldArray) => [...oldArray, product]);
+    //     });
+    //   });
+    // });
   }, []);
 
   const handleDeleteBookmark = (category, id, setter) => {
