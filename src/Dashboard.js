@@ -337,6 +337,19 @@ const Dashboard = () => {
     width: "max-content",
   };
 
+  const cardImageStyles = {
+    aspectRatio: "1 / 1",
+    width: "100%",
+    objectFit: "contain",
+    objectPosition: "center",
+  };
+
+  const cardNameStyles = {
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  };
+
   return (
     <div className="app">
       <Alert
@@ -767,10 +780,17 @@ const Dashboard = () => {
                   {bestseller &&
                     bestseller.map((item, index) => {
                       return (
-                        <Col key={index}>
+                        <Col key={index} xs={4}>
                           <Card>
                             <Card.Body>
-                              <Card.Title>{item.name}</Card.Title>
+                              <Card.Img
+                                variant="top"
+                                src={item.image[0]}
+                                style={cardImageStyles}
+                              />
+                              <Card.Title style={cardNameStyles}>
+                                {item.name}
+                              </Card.Title>
                               <Card.Text>{item.ID}</Card.Text>
                               <Button
                                 variant="danger"
@@ -847,10 +867,17 @@ const Dashboard = () => {
                   {onsale &&
                     onsale.map((item, index) => {
                       return (
-                        <Col key={index}>
+                        <Col key={index} xs={4}>
                           <Card>
+                            <Card.Img
+                              variant="top"
+                              src={item.image[0]}
+                              style={cardImageStyles}
+                            />
                             <Card.Body>
-                              <Card.Title>{item.name}</Card.Title>
+                              <Card.Title style={cardNameStyles}>
+                                {item.name}
+                              </Card.Title>
                               <Card.Text>{item.ID}</Card.Text>
                               <Button
                                 variant="danger"
@@ -927,10 +954,17 @@ const Dashboard = () => {
                   {featured &&
                     featured.map((item, index) => {
                       return (
-                        <Col key={index}>
+                        <Col key={index} xs={4}>
                           <Card>
+                            <Card.Img
+                              variant="top"
+                              src={item.image[0]}
+                              style={cardImageStyles}
+                            />
                             <Card.Body>
-                              <Card.Title>{item.name}</Card.Title>
+                              <Card.Title style={cardNameStyles}>
+                                {item.name}
+                              </Card.Title>
                               <Card.Text>{item.ID}</Card.Text>
                               <Button
                                 variant="danger"
@@ -1007,10 +1041,17 @@ const Dashboard = () => {
                   {trending &&
                     trending.map((item, index) => {
                       return (
-                        <Col key={index}>
+                        <Col key={index} xs={4}>
                           <Card>
                             <Card.Body>
-                              <Card.Title>{item.name}</Card.Title>
+                              <Card.Img
+                                variant="top"
+                                src={item.image[0]}
+                                style={cardImageStyles}
+                              />
+                              <Card.Title style={cardNameStyles}>
+                                {item.name}
+                              </Card.Title>
                               <Card.Text>{item.ID}</Card.Text>
                               <Button
                                 variant="danger"
