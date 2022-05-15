@@ -44,6 +44,26 @@ const ACTIONS = {
   SET_PICTURE5: "add-picture-5",
   SET_SPECIAL: "special-product",
   CHOOSE_BRAND: "choose-brand",
+  UPDATE_ID: "update-id",
+  UPDATE_NAME: "update-name",
+  UPDATE_PRICE: "update-price",
+  UPDATE_DETAILS: "update-details",
+  UPDATE_CATEGORY: "update-category",
+  UPDATE_RATE: "update-rate",
+  UPDATE_BRAND: "update-brand",
+  UPDATE_ADD_COLOR: "update-add-color",
+  UPDATE_REMOVE_COLOR: "update-remove-color",
+  UPDATE_SET_COLORS: "update-set-colors",
+  UPDATE_ADD_SIZE: "update-add-size",
+  UPDATE_REMOVE_SIZE: "update-remove-size",
+  UPDATE_SET_SIZES: "update-set-sizes",
+  UPDATE_SPECIAL: "update-remove-size",
+  UPDATE_PICTURE1: "update-picture-1",
+  UPDATE_PICTURE2: "update-picture-2",
+  UPDATE_PICTURE3: "update-picture-3",
+  UPDATE_PICTURE4: "update-picture-4",
+  UPDATE_PICTURE5: "update-picture-5",
+  UPDATE_IS_SPECIAL: "update-is-special",
   RESET: "reset",
 };
 
@@ -62,6 +82,21 @@ const init = {
   sizes: [],
   brand: "null",
   isSpecial: false,
+  updateID: "",
+  updateName: "",
+  updatePrice: "",
+  updateRate: 1,
+  updateDetails: "",
+  updateCategory: "mobiles",
+  updatePicture1: "",
+  updatePicture2: "",
+  updatePicture3: "",
+  updatePicture4: "",
+  updatePicture5: "",
+  updateColors: [],
+  updateSizes: [],
+  updateBrand: "null",
+  updateIsSpecial: false,
 };
 
 function stateReducer(state, action) {
@@ -124,6 +159,88 @@ function stateReducer(state, action) {
         return { ...state, brand: action.payload };
       }
 
+    case ACTIONS.UPDATE_ID:
+      return { ...state, updateID: action.payload };
+
+    case ACTIONS.UPDATE_NAME:
+      return { ...state, updateName: action.payload };
+
+    case ACTIONS.UPDATE_PRICE:
+      return { ...state, updatePrice: action.payload };
+
+    case ACTIONS.UPDATE_DETAILS:
+      return { ...state, updateDetails: action.payload };
+
+    case ACTIONS.UPDATE_RATE:
+      return { ...state, updateRate: action.payload };
+
+    case ACTIONS.UPDATE_CATEGORY:
+      return { ...state, updateCategory: action.payload };
+
+    case ACTIONS.UPDATE_PICTURE1:
+      return { ...state, updatePicture1: action.payload };
+
+    case ACTIONS.UPDATE_PICTURE2:
+      return { ...state, updatePicture2: action.payload };
+
+    case ACTIONS.UPDATE_PICTURE3:
+      return { ...state, updatePicture3: action.payload };
+
+    case ACTIONS.UPDATE_PICTURE4:
+      return { ...state, updatePicture4: action.payload };
+
+    case ACTIONS.UPDATE_PICTURE5:
+      return { ...state, updatePicture5: action.payload };
+
+    case ACTIONS.UPDATE_ADD_COLOR:
+      return {
+        ...state,
+        updateColors: [...state.updateColors, action.payload],
+      };
+
+    case ACTIONS.UPDATE_REMOVE_COLOR:
+      return {
+        ...state,
+        updateColors: state.updateColors.filter(
+          (item) => item !== action.payload
+        ),
+      };
+
+    case ACTIONS.UPDATE_ADD_SIZE:
+      return { ...state, updateSizes: [...state.updateSizes, action.payload] };
+
+    case ACTIONS.UPDATE_REMOVE_SIZE:
+      return {
+        ...state,
+        updateSizes: state.updateSizes.filter(
+          (item) => item !== action.payload
+        ),
+      };
+
+    case ACTIONS.UPDATE_BRAND:
+      return { ...state, updateBrand: action.payload };
+
+    case ACTIONS.UPDATE_SPECIAL:
+      return { ...state, updateIsSpecial: !state.updateIsSpecial };
+
+    case ACTIONS.UPDATE_SET_SIZES:
+      return {
+        ...state,
+        updateSizes: action.payload,
+      };
+
+    case ACTIONS.UPDATE_SET_COLORS:
+      return {
+        ...state,
+        updateColors: action.payload,
+      };
+
+    case ACTIONS.UPDATE_IS_SPECIAL:
+      return {
+        ...state,
+        updateIsSpecial: action.payload,
+      };
+
     case ACTIONS.RESET:
       return init;
 
@@ -138,6 +255,7 @@ const Dashboard = () => {
   const [delcategory, setDelcategory] = useState("mobiles");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const [onsale, setOnsale] = useState([]);
   const [bestseller, setBestseller] = useState([]);
@@ -205,50 +323,6 @@ const Dashboard = () => {
         });
       });
     });
-    // .then((snapshot) => {
-    //   snapshot.forEach((doc) => {
-    //     const docID = doc.id;
-    //     const bestsellerItems = Object.keys(doc.data()).filter((item) => {
-    //       return doc.data()[item].bestseller === true;
-    //     });
-    //     bestsellerItems.forEach((item) => {
-    //       const product = doc.data()[item];
-    //       product.category = docID;
-    //       product.ID = item;
-    //       setBestseller((oldArray) => [...oldArray, product]);
-    //     });
-
-    //     const onsaleItems = Object.keys(doc.data()).filter((item) => {
-    //       return doc.data()[item].onsale === true;
-    //     });
-    //     onsaleItems.forEach((item) => {
-    //       const product = doc.data()[item];
-    //       product.category = docID;
-    //       product.ID = item;
-    //       setOnsale((oldArray) => [...oldArray, product]);
-    //     });
-
-    //     const featuredItems = Object.keys(doc.data()).filter((item) => {
-    //       return doc.data()[item].featured === true;
-    //     });
-    //     featuredItems.forEach((item) => {
-    //       const product = doc.data()[item];
-    //       product.category = docID;
-    //       product.ID = item;
-    //       setFeatured((oldArray) => [...oldArray, product]);
-    //     });
-
-    //     const trendingItems = Object.keys(doc.data()).filter((item) => {
-    //       return doc.data()[item].trending === true;
-    //     });
-    //     trendingItems.forEach((item) => {
-    //       const product = doc.data()[item];
-    //       product.category = docID;
-    //       product.ID = item;
-    //       setTrending((oldArray) => [...oldArray, product]);
-    //     });
-    //   });
-    // });
   }, []);
 
   const handleDeleteBookmark = (category, id, setter) => {
@@ -330,6 +404,80 @@ const Dashboard = () => {
     });
   };
 
+  const handleGetProductToUpdate = (category, id) => {
+    const docRef = doc(db, "categories", `${category}`);
+
+    getDoc(docRef).then((snapshot) => {
+      const data = snapshot.data()[id];
+      dispatch({ type: ACTIONS.UPDATE_NAME, payload: data.name });
+      dispatch({ type: ACTIONS.UPDATE_PRICE, payload: data.price });
+      dispatch({ type: ACTIONS.UPDATE_DETAILS, payload: data.details });
+      dispatch({ type: ACTIONS.UPDATE_RATE, payload: data.rate });
+      dispatch({ type: ACTIONS.UPDATE_BRAND, payload: data.brand });
+      dispatch({ type: ACTIONS.UPDATE_SET_SIZES, payload: data.sizes });
+      dispatch({ type: ACTIONS.UPDATE_SET_COLORS, payload: data.colors });
+      dispatch({ type: ACTIONS.UPDATE_IS_SPECIAL, payload: data.isSpecial });
+      dispatch({ type: ACTIONS.UPDATE_PICTURE1, payload: data.image[0] });
+      dispatch({ type: ACTIONS.UPDATE_PICTURE2, payload: data.image[1] });
+      dispatch({ type: ACTIONS.UPDATE_PICTURE3, payload: data.image[2] });
+      dispatch({ type: ACTIONS.UPDATE_PICTURE4, payload: data.image[3] });
+      dispatch({ type: ACTIONS.UPDATE_PICTURE5, payload: data.image[4] });
+    });
+  };
+
+  const handleUpdateSizes = (event) => {
+    if (event.target.checked) {
+      dispatch({ type: ACTIONS.UPDATE_ADD_SIZE, payload: event.target.value });
+    } else {
+      dispatch({
+        type: ACTIONS.UPDATE_REMOVE_SIZE,
+        payload: event.target.value,
+      });
+    }
+  };
+
+  const handleUpdateColors = (event) => {
+    if (event.target.checked) {
+      dispatch({ type: ACTIONS.UPDATE_ADD_COLOR, payload: event.target.value });
+    } else {
+      dispatch({
+        type: ACTIONS.UPDATE_REMOVE_COLOR,
+        payload: event.target.value,
+      });
+    }
+  };
+
+  const handleUpdateProduct = (event) => {
+    event.preventDefault();
+    const docRef = doc(db, "categories", `${state.updateCategory}`);
+    const updatedData = {
+      name: state.updateName,
+      price: Number(state.updatePrice),
+      details: state.updateDetails,
+      rate: state.updateRate,
+      sizes: state.updateSizes,
+      colors: state.updateColors,
+      isSpecial: state.updateIsSpecial,
+      image: [
+        state.updatePicture1,
+        state.updatePicture2,
+        state.updatePicture3,
+        state.updatePicture4,
+        state.updatePicture5,
+      ],
+      brand: state.updateBrand,
+    };
+    updateDoc(docRef, {
+      [state.updateID]: updatedData,
+    }).then(() => {
+      dispatch({ type: ACTIONS.RESET });
+      setIsUpdated(true);
+      setTimeout(() => {
+        setIsUpdated(false);
+      }, 2000);
+    });
+  };
+
   const alertStyles = {
     position: "fixed",
     right: "10px",
@@ -368,6 +516,14 @@ const Dashboard = () => {
       >
         A product was deleted!
       </Alert>
+      <Alert
+        variant="success"
+        className="shadow"
+        style={alertStyles}
+        show={isUpdated}
+      >
+        A product was Updated! 👍
+      </Alert>
       <Container>
         <Tabs className="mt-4">
           <Tab eventKey="main" title="Main">
@@ -391,7 +547,7 @@ const Dashboard = () => {
                 </Col>
                 <Col>
                   <Form.Group className="mt-3">
-                    <Form.Label>Price Name</Form.Label>
+                    <Form.Label>Product Price</Form.Label>
                     <InputGroup>
                       <InputGroup.Text>$</InputGroup.Text>
                       <Form.Control
@@ -459,7 +615,7 @@ const Dashboard = () => {
                   <Form.Group className="mt-3">
                     <Form.Label>Rate {state.rate}</Form.Label>
                     <Form.Range
-                      defaultValue={1}
+                      value={state.rate}
                       min={1}
                       max={5}
                       onChange={(event) =>
@@ -1095,8 +1251,13 @@ const Dashboard = () => {
                   <Form.Group className="mt-3">
                     <Form.Label>Choose the category</Form.Label>
                     <Form.Select
-                      value={delcategory}
-                      onChange={(event) => setDelcategory(event.target.value)}
+                      value={state.updateCategory}
+                      onChange={(event) =>
+                        dispatch({
+                          type: ACTIONS.UPDATE_CATEGORY,
+                          payload: event.target.value,
+                        })
+                      }
                     >
                       <option value="mobiles">Mobiles</option>
                       <option value="men's">Men's Fashion</option>
@@ -1117,6 +1278,371 @@ const Dashboard = () => {
                 </Form.Group>
               </Row>
             </Form>
+          </Tab>
+          <Tab eventKey="update" title="Update">
+            <Form
+              className="mt-3"
+              onSubmit={(event) => {
+                {
+                  event.preventDefault();
+                  handleGetProductToUpdate(
+                    state.updateCategory,
+                    state.updateID
+                  );
+                }
+              }}
+            >
+              <Row>
+                <Col>
+                  <Form.Group>
+                    <Form.Label>Product ID</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={state.updateID}
+                      onChange={(event) =>
+                        dispatch({
+                          type: ACTIONS.UPDATE_ID,
+                          payload: event.target.value,
+                        })
+                      }
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group>
+                    <Form.Label>Product Category</Form.Label>
+                    <Form.Select
+                      value={state.updateCategory}
+                      onChange={(event) =>
+                        dispatch({
+                          type: ACTIONS.UPDATE_CATEGORY,
+                          payload: event.target.value,
+                        })
+                      }
+                    >
+                      <option value="mobiles">Mobiles</option>
+                      <option value="men's">Men's Fashion</option>
+                      <option value="women's">Women's Fashion</option>
+                      <option value="kids'">Kids' Fashion</option>
+                      <option value="beauty">Beauty</option>
+                      <option value="electronics">Electronics</option>
+                      <option value="home&kitchen">Home & Kitchen</option>
+                      <option value="televisions">Televisions</option>
+                      <option value="toys">Toys</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col className="mt-3">
+                  <Button type="submit">Get Product</Button>
+                </Col>
+              </Row>
+            </Form>
+            <Tabs className="mt-3">
+              <Tab eventKey="main" title="Main">
+                <Form onSubmit={handleUpdateProduct}>
+                  <Row className="mt-3">
+                    <Col>
+                      <Form.Group>
+                        <Form.Label>Product Name</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={state.updateName}
+                          onChange={(event) =>
+                            dispatch({
+                              type: ACTIONS.UPDATE_NAME,
+                              payload: event.target.value,
+                            })
+                          }
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group>
+                        <Form.Label>Product Price</Form.Label>
+                        <InputGroup>
+                          <InputGroup.Text>$</InputGroup.Text>
+                          <Form.Control
+                            type="number"
+                            step="any"
+                            min={0}
+                            value={state.updatePrice}
+                            onChange={(event) =>
+                              dispatch({
+                                type: ACTIONS.UPDATE_PRICE,
+                                payload: event.target.value,
+                              })
+                            }
+                          />
+                        </InputGroup>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row className="mt-3">
+                    <Col>
+                      <Form.Group>
+                        <Form.Label>Product Details</Form.Label>
+                        <Form.Control
+                          as="textarea"
+                          value={state.updateDetails}
+                          onChange={(event) =>
+                            dispatch({
+                              type: ACTIONS.UPDATE_DETAILS,
+                              payload: event.target.value,
+                            })
+                          }
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row className="mt-3">
+                    <Col>
+                      <Form.Group className="mt-3">
+                        <Form.Label>Rate {state.updateRate}</Form.Label>
+                        <Form.Range
+                          value={state.updateRate}
+                          min={1}
+                          max={5}
+                          onChange={(event) =>
+                            dispatch({
+                              type: ACTIONS.UPDATE_RATE,
+                              payload: event.target.value,
+                            })
+                          }
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group>
+                        <Form.Label>Brand</Form.Label>
+                        <Form.Select
+                          value={state.updateBrand}
+                          onChange={(event) =>
+                            dispatch({
+                              type: ACTIONS.UPDATE_BRAND,
+                              payload: event.target.value,
+                            })
+                          }
+                        >
+                          <option value="null">None</option>
+                          <option value="samsung">Samsung</option>
+                          <option value="adidas">Adidas</option>
+                          <option value="apple">Apple</option>
+                          <option value="nike">Nike</option>
+                          <option value="xiaomi">Xiaomi</option>
+                          <option value="dell">Dell</option>
+                          <option value="hp">HP</option>
+                          <option value="realme">Realme</option>
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row className="mt-3">
+                    <Col>
+                      <Form.Group>
+                        <Form.Check
+                          type="checkbox"
+                          label="Special Offer"
+                          checked={state.updateIsSpecial}
+                          onChange={() =>
+                            dispatch({ type: ACTIONS.UPDATE_SPECIAL })
+                          }
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row className="mt-3">
+                    <Col>
+                      <Form.Group>
+                        <Form.Label>Color</Form.Label>
+                        <Form.Check
+                          type="checkbox"
+                          label="white"
+                          value="white"
+                          checked={state.updateColors.includes("white")}
+                          onChange={handleUpdateColors}
+                        />
+                        <Form.Check
+                          type="checkbox"
+                          label="black"
+                          value="black"
+                          checked={state.updateColors.includes("black")}
+                          onChange={handleUpdateColors}
+                        />
+                        <Form.Check
+                          type="checkbox"
+                          label="green"
+                          value="green"
+                          checked={state.updateColors.includes("green")}
+                          onChange={handleUpdateColors}
+                        />
+                        <Form.Check
+                          type="checkbox"
+                          label="yellow"
+                          value="yellow"
+                          checked={state.updateColors.includes("yellow")}
+                          onChange={handleUpdateColors}
+                        />
+                        <Form.Check
+                          type="checkbox"
+                          label="blue"
+                          value="blue"
+                          checked={state.updateColors.includes("blue")}
+                          onChange={handleUpdateColors}
+                        />
+                        <Form.Check
+                          type="checkbox"
+                          label="purple"
+                          value="purple"
+                          checked={state.updateColors.includes("purple")}
+                          onChange={handleUpdateColors}
+                        />
+                        <Form.Check
+                          type="checkbox"
+                          label="red"
+                          value="red"
+                          checked={state.updateColors.includes("red")}
+                          onChange={handleUpdateColors}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group>
+                        <Form.Label>Sizes</Form.Label>
+                        <Form.Check
+                          type="checkbox"
+                          label="M"
+                          value="m"
+                          checked={state.updateSizes.includes("m")}
+                          onChange={handleUpdateSizes}
+                        />
+                        <Form.Check
+                          type="checkbox"
+                          label="L"
+                          value="l"
+                          checked={state.updateSizes.includes("l")}
+                          onChange={handleUpdateSizes}
+                        />
+                        <Form.Check
+                          type="checkbox"
+                          label="XL"
+                          value="xl"
+                          checked={state.updateSizes.includes("xl")}
+                          onChange={handleUpdateSizes}
+                        />
+                        <Form.Check
+                          type="checkbox"
+                          label="XXL"
+                          value="xxl"
+                          checked={state.updateSizes.includes("xxl")}
+                          onChange={handleUpdateSizes}
+                        />
+                        <Form.Check
+                          type="checkbox"
+                          label="XXXL"
+                          value="xxxl"
+                          checked={state.updateSizes.includes("xxxl")}
+                          onChange={handleUpdateSizes}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row className="mt-3">
+                    <Col>
+                      <Button type="submit">Update</Button>
+                    </Col>
+                  </Row>
+                </Form>
+              </Tab>
+              <Tab eventKey="pictures" title="Pictures">
+                <Row className="mt-3">
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>Prodcut Picture 1</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={state.updatePicture1}
+                        onChange={(event) =>
+                          dispatch({
+                            type: ACTIONS.UPDATE_PICTURE1,
+                            payload: event.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row className="mt-3">
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>Prodcut Picture 2</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={state.updatePicture2}
+                        onChange={(event) =>
+                          dispatch({
+                            type: ACTIONS.UPDATE_PICTURE2,
+                            payload: event.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row className="mt-3">
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>Prodcut Picture 3</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={state.updatePicture3}
+                        onChange={(event) =>
+                          dispatch({
+                            type: ACTIONS.UPDATE_PICTURE3,
+                            payload: event.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row className="mt-3">
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>Prodcut Picture 4</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={state.updatePicture4}
+                        onChange={(event) =>
+                          dispatch({
+                            type: ACTIONS.UPDATE_PICTURE4,
+                            payload: event.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row className="mt-3">
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>Prodcut Picture 5</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={state.updatePicture5}
+                        onChange={(event) =>
+                          dispatch({
+                            type: ACTIONS.UPDATE_PICTURE5,
+                            payload: event.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </Tab>
+            </Tabs>
           </Tab>
         </Tabs>
       </Container>
