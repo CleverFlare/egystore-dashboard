@@ -1251,13 +1251,8 @@ const Dashboard = () => {
                   <Form.Group className="mt-3">
                     <Form.Label>Choose the category</Form.Label>
                     <Form.Select
-                      value={state.updateCategory}
-                      onChange={(event) =>
-                        dispatch({
-                          type: ACTIONS.UPDATE_CATEGORY,
-                          payload: event.target.value,
-                        })
-                      }
+                      value={delcategory}
+                      onChange={(event) => setDelcategory(event.target.value)}
                     >
                       <option value="mobiles">Mobiles</option>
                       <option value="men's">Men's Fashion</option>
